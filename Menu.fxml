@@ -7,17 +7,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox alignment="CENTER" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuSceneController">
    <children>
       <VBox HBox.hgrow="ALWAYS">
          <children>
             <TextField fx:id="searchField" promptText="Search..." />
             <TableView fx:id="inventoryTable" minWidth="300.0">
               <columns>
-                <TableColumn fx:id="idColumn" minWidth="-1.0" prefWidth="-1.0" text="Stock ID" />
-                <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="-1.0" text="Name" />
-                  <TableColumn fx:id="quantityColumn" minWidth="-1.0" prefWidth="-1.0" text="Quantity" />
+                <TableColumn fx:id="idColumn" maxWidth="-Infinity" minWidth="-1.0" prefWidth="-1.0" text="Stock ID" />
+                <TableColumn fx:id="nameColumn" maxWidth="-Infinity" minWidth="-1.0" prefWidth="-1.0" text="Name" />
+                  <TableColumn fx:id="quantityColumn" maxWidth="-Infinity" minWidth="-1.0" prefWidth="-1.0" text="Quantity" />
               </columns>
             </TableView>
          </children>
@@ -28,7 +27,7 @@
                <children>
                   <Button fx:id="warehouseButton" mnemonicParsing="false" text="Warehouse Visualisation" />
                   <Button fx:id="deliveriesButton" mnemonicParsing="false" text="Pending Deliveries" />
-                  <Button mnemonicParsing="false" text="Charts" />
+                  <Button fx:id="chartsButton" mnemonicParsing="false" text="Charts" />
                </children>
             </HBox>
          </children>

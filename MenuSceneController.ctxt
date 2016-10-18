@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=MenuSceneController()
+comment1.params=
+comment1.target=void\ initialize()
+comment2.params=stage
+comment2.target=void\ prepareStageEvents(javafx.stage.Stage)
+comment3.params=we
+comment3.target=void\ handle(javafx.stage.WindowEvent)
+comment4.params=
+comment4.target=void\ warehouseClicked()
+comment5.params=
+comment5.target=void\ deliveriesClicked()
+comment6.params=
+comment6.target=void\ chartsClicked()
+numComments=7

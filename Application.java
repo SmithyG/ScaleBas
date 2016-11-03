@@ -21,6 +21,7 @@ public class Application
             database = new DatabaseConnection("ScaleBaseDataBase.db");
             FXMLLoader loader = new FXMLLoader(Application.class.getResource("Menu.fxml"));
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setTitle("ScaleBase");
             stage.setScene(new Scene(loader.load()));
             stage.show();           

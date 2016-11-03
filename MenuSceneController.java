@@ -18,11 +18,7 @@ public class MenuSceneController
     @FXML private Button warehouseButton;
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
-    @FXML private TableView inventoryTable;
-    @FXML private TableColumn idColumn;
-    @FXML private TableColumn nameColumn;
-    @FXML private TableColumn quantityColumn;
- 
+    @FXML private TableView<Productmaster> inventoryTable;
 
     public MenuSceneController()
     {
@@ -42,9 +38,6 @@ public class MenuSceneController
         assert deliveriesButton != null : "Can't find deliveries button.";
         assert chartsButton != null : "Can't find charts button.";
         assert inventoryTable != null : "Can't find inventory table.";
-        assert idColumn != null : "Can't find ID column.";
-        assert nameColumn != null : "Can't find name column.";
-        assert quantityColumn != null : "Can't find quantity column.";
     }
 
     public void prepareStageEvents(Stage stage)
@@ -60,7 +53,6 @@ public class MenuSceneController
                 }
             });
     }
-
     @FXML void warehouseClicked()
     {
         System.out.println("Warehouse Clicked!");
@@ -70,7 +62,7 @@ public class MenuSceneController
     {
         System.out.println("Pending Deliveries Clicked");
     }
-    
+
     @FXML void chartsClicked()
     {
         System.out.println("Charts clicked");

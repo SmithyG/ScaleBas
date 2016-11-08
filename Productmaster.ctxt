@@ -1,6 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=java.lang.String\ getProductName()
-comment1.params=
-comment1.target=java.lang.Integer\ getProductID()
-numComments=2
+comment1.params=productName
+comment1.target=void\ setProductName(java.lang.String)
+comment2.params=
+comment2.target=int\ getproductID()
+comment3.params=productID\ productName
+comment3.target=Productmaster(int,\ java.lang.String)
+comment4.params=list
+comment4.target=void\ readAll(java.util.List)
+numComments=5

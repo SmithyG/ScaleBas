@@ -5,6 +5,12 @@ import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.collections.FXCollections;
+import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * This class controls interactivity with JavaFX
  * 
@@ -15,6 +21,9 @@ public class MenuSceneController
 {  
     private static Stage stage;
 
+    @FXML private HBox backgroundHBox;
+    @FXML private VBox tableVBox;
+    @FXML private VBox backgroundVBox;
     @FXML private Button warehouseButton;
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
@@ -34,10 +43,41 @@ public class MenuSceneController
     @FXML   void initialize()
     {
         System.out.println("Asserting controls...");
-        assert warehouseButton != null : "Can't find warehouse visualisation button.";
-        assert deliveriesButton != null : "Can't find deliveries button.";
-        assert chartsButton != null : "Can't find charts button.";
-        assert inventoryTable != null : "Can't find inventory table.";
+        try
+        {
+            assert warehouseButton != null : "Can't find warehouse visualisation button.";
+            assert deliveriesButton != null : "Can't find deliveries button.";
+            assert chartsButton != null : "Can't find charts button.";
+            assert inventoryTable != null : "Can't find inventory table.";
+            assert backgroundHBox != null : "Can't find backgroundHBox.";
+            assert tableVBox != null : "Can't find tableVBox.";
+            assert backgroundVBox != null : "Can't find backgroundVBox.";
+        }
+        catch (AssertionError ae)
+        {
+            System.out.println("FXML assertion failure: " + ae.getMessage());
+            Application.terminate();
+        }
+        
+        System.out.println("Populating scene with items from the database...");        
+
+        ObservableList<Productmaster> productList = FXCollections.observableArrayList();
+       Productmaster.readAll(productList);             
+
+        /* TableColumn<Productmaster, int> productIDColumn = new TableColumn<>("Product ID");
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, int>("Product ID"));
+        productIDColumn.setMinWidth(150);
+        inventoryTable.getColumns().add(productIDColumn);
+        */
+
+        TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, String>("Product Name"));
+        productNameColumn.setMinWidth(150);
+        inventoryTable.getColumns().add(productNameColumn);
+
+        
+        inventoryTable.setItems(productList);
+
     }
 
     public void prepareStageEvents(Stage stage)
@@ -53,6 +93,7 @@ public class MenuSceneController
                 }
             });
     }
+
     @FXML void warehouseClicked()
     {
         System.out.println("Warehouse Clicked!");

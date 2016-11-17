@@ -63,17 +63,16 @@ public class MenuSceneController
 
         ObservableList<Productmaster> productList = FXCollections.observableArrayList();
        Productmaster.readAll(productList);             
-
-        /* TableColumn<Productmaster, int> productIDColumn = new TableColumn<>("Product ID");
-        productIDColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, int>("Product ID"));
-        productIDColumn.setMinWidth(150);
-        inventoryTable.getColumns().add(productIDColumn);
-        */
-
-        TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, String>("Product Name"));
+        
+       TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, String>("ProductName"));
         productNameColumn.setMinWidth(150);
         inventoryTable.getColumns().add(productNameColumn);
+        
+       TableColumn<Productmaster, Double> productPriceColumn = new TableColumn<>("Product Price");
+       productPriceColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Double>("ProductPrice"));
+       productPriceColumn.setMinWidth(150);
+       inventoryTable.getColumns().add(productPriceColumn);
 
         
         inventoryTable.setItems(productList);

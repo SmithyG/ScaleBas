@@ -11,12 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
-/**
- * This class controls interactivity with JavaFX
- * 
- * @George Smith
- * @Alpha
- */
+
 public class MenuSceneController
 {  
     private static Stage stage;
@@ -58,27 +53,30 @@ public class MenuSceneController
             System.out.println("FXML assertion failure: " + ae.getMessage());
             Application.terminate();
         }
-        
+
         System.out.println("Populating scene with items from the database...");        
 
         ObservableList<Productmaster> productList = FXCollections.observableArrayList();
-       Productmaster.readAll(productList);             
-        
-       TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
+        Productmaster.readAll(productList); 
+
+        TableColumn<Productmaster, Integer> productIDColumn = new TableColumn<>("Product ID");
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Integer>("ProductID"));
+        productIDColumn.setMinWidth(75);
+        inventoryTable.getColumns().add(productIDColumn);
+
+        TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
         productNameColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, String>("ProductName"));
         productNameColumn.setMinWidth(150);
         inventoryTable.getColumns().add(productNameColumn);
-        
-       TableColumn<Productmaster, Double> productPriceColumn = new TableColumn<>("Product Price");
-       productPriceColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Double>("ProductPrice"));
-       productPriceColumn.setMinWidth(150);
-       inventoryTable.getColumns().add(productPriceColumn);
 
-        
+        TableColumn<Productmaster, Double> productPriceColumn = new TableColumn<>("Product Price");
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Double>("ProductPrice"));
+        productPriceColumn.setMinWidth(150);
+        inventoryTable.getColumns().add(productPriceColumn);
+
         inventoryTable.setItems(productList);
-
     }
-
+    
     public void prepareStageEvents(Stage stage)
     {
         System.out.println("Preparing stage events...");

@@ -43,7 +43,7 @@ public  class Productmaster{
     public static void readAll(List<Productmaster> list)
     {
         list.clear();
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductName, ProductPrice FROM StockInformation");
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice FROM StockInformation");
 
         if (statement !=null)
         {

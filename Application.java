@@ -31,7 +31,7 @@ public class Application
         catch (Exception ex)
         {
             System.out.println(ex.getMessage());
-            /*terminate();*/
+            terminate();
         }
     }
 

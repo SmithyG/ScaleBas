@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="backgroundHBox" alignment="CENTER" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuSceneController">
+<HBox fx:id="backgroundHBox" alignment="CENTER" maxHeight="425.0" maxWidth="800.0" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuSceneController">
    <children>
       <VBox fx:id="tableVBox" HBox.hgrow="ALWAYS">
          <children>
-            <TextField fx:id="searchField" promptText="Search..." />
+            <TextField fx:id="searchField" onKeyReleased="#textEntered" promptText="Search..." />
             <TableView fx:id="inventoryTable" minWidth="300.0" />
          </children>
       </VBox>

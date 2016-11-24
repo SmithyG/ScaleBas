@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MenuSceneController
 {  
     private static Stage stage;
+    private CharSequence searchFieldContents;
 
     @FXML private HBox backgroundHBox;
     @FXML private VBox tableVBox;
@@ -23,6 +25,8 @@ public class MenuSceneController
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
     @FXML private TableView<Productmaster> inventoryTable;
+    @FXML private TextField searchField;
+    
 
     public MenuSceneController()
     {
@@ -47,6 +51,7 @@ public class MenuSceneController
             assert backgroundHBox != null : "Can't find backgroundHBox.";
             assert tableVBox != null : "Can't find tableVBox.";
             assert backgroundVBox != null : "Can't find backgroundVBox.";
+            assert searchField != null : "Can't find search field.";
         }
         catch (AssertionError ae)
         {
@@ -61,7 +66,7 @@ public class MenuSceneController
 
         TableColumn<Productmaster, Integer> productIDColumn = new TableColumn<>("Product ID");
         productIDColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Integer>("ProductID"));
-        productIDColumn.setMinWidth(75);
+        productIDColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productIDColumn);
 
         TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
@@ -90,7 +95,7 @@ public class MenuSceneController
                 }
             });
     }
-
+    
     @FXML void warehouseClicked()
     {
         System.out.println("Warehouse Clicked!");
@@ -104,6 +109,12 @@ public class MenuSceneController
     @FXML void chartsClicked()
     {
         System.out.println("Charts clicked");
+    }
+    
+    @FXML void textEntered()
+    {
+        searchFieldContents = searchField.getCharacters();
+        System.out.println(searchFieldContents.toString());
     }
 
 }

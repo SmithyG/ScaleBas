@@ -1,5 +1,7 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
@@ -24,7 +26,7 @@ public class MenuSceneController
     @FXML private Button warehouseButton;
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
-    @FXML private TableView<Productmaster> inventoryTable;
+    @FXML private TableView<StockInformation> inventoryTable;
     @FXML private TextField searchField;
     
 
@@ -61,21 +63,21 @@ public class MenuSceneController
 
         System.out.println("Populating scene with items from the database...");        
 
-        ObservableList<Productmaster> productList = FXCollections.observableArrayList();
-        Productmaster.readAll(productList); 
+        ObservableList<StockInformation> productList = FXCollections.observableArrayList();
+        StockInformation.readAll(productList); 
 
-        TableColumn<Productmaster, Integer> productIDColumn = new TableColumn<>("Product ID");
-        productIDColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Integer>("ProductID"));
+        TableColumn<StockInformation, Integer> productIDColumn = new TableColumn<>("Product ID");
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Integer>("ProductID"));
         productIDColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productIDColumn);
 
-        TableColumn<Productmaster, String> productNameColumn = new TableColumn<>("Product Name");
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, String>("ProductName"));
+        TableColumn<StockInformation, String> productNameColumn = new TableColumn<>("Product Name");
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("ProductName"));
         productNameColumn.setMinWidth(150);
         inventoryTable.getColumns().add(productNameColumn);
 
-        TableColumn<Productmaster, Double> productPriceColumn = new TableColumn<>("Product Price");
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<Productmaster, Double>("ProductPrice"));
+        TableColumn<StockInformation, Double> productPriceColumn = new TableColumn<>("Product Price");
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Double>("ProductPrice"));
         productPriceColumn.setMinWidth(150);
         inventoryTable.getColumns().add(productPriceColumn);
 
@@ -115,6 +117,30 @@ public class MenuSceneController
     {
         searchFieldContents = searchField.getCharacters();
         System.out.println(searchFieldContents.toString());
+    }
+    
+        void openNewScene(int id)
+    {
+
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("AddScene.fxml"));
+
+        try
+        {
+            Stage stage2 = new Stage();
+            stage2.setTitle("Add");
+            stage2.setScene(new Scene(loader.load()));
+            stage2.show();           
+            AddSceneController controller2 = loader.getController();
+            controller2.prepareStageEvents(stage2);
+
+            controller2.setParent(this);     
+
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
 }

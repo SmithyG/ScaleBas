@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=AddSceneController()
+comment1.params=stage
+comment1.target=void\ prepareStageEvents(javafx.stage.Stage)
+comment2.params=we
+comment2.target=void\ handle(javafx.stage.WindowEvent)
+comment3.params=
+comment3.target=void\ initialize()
+comment4.params=parent
+comment4.target=void\ setParent(MenuSceneController)
+comment5.params=
+comment5.target=void\ saveButtonClicked()
+comment6.params=
+comment6.target=void\ cancelButtonClicked()
+numComments=7

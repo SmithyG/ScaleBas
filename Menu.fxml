@@ -11,6 +11,13 @@
       <VBox fx:id="tableVBox" HBox.hgrow="ALWAYS">
          <children>
             <TextField fx:id="searchField" onKeyReleased="#textEntered" promptText="Search..." />
+            <HBox prefWidth="200.0">
+               <children>
+                  <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Add" />
+                  <Button fx:id="editButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Edit" />
+                  <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Delete" />
+               </children>
+            </HBox>
             <TableView fx:id="inventoryTable" minWidth="300.0" />
          </children>
       </VBox>

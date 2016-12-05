@@ -18,7 +18,7 @@
                   <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deleteClicked" text="Delete" />
                </children>
             </HBox>
-            <TableView fx:id="inventoryTable" minWidth="300.0" />
+            <TableView fx:id="inventoryTable" minWidth="300.0" onKeyPressed="#tableViewClicked" onMouseClicked="#tableViewClicked" />
          </children>
       </VBox>
       <VBox fx:id="backgroundVBox" minWidth="500.0" HBox.hgrow="ALWAYS">

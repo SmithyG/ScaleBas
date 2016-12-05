@@ -109,9 +109,23 @@ public class MenuSceneController
             });
     }
     
+    @FXML   void tableViewClicked()
+    {
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem == null)
+        {
+            System.out.println("Nothing selected!");
+        }
+        else
+        {
+            System.out.println(selectedItem + " (id: " + selectedItem.getProductID() + ") is selected.");
+        }
+    }
+    
     @FXML void warehouseClicked()
     {
-        System.out.println("Warehouse Clicked!");
+        System.out.println("Warehouse Clicked");
     }
 
     @FXML void deliveriesClicked()
@@ -121,7 +135,7 @@ public class MenuSceneController
 
     @FXML void chartsClicked()
     {
-        System.out.println("Charts clicked");
+        System.out.println("Charts Clicked");
     }
     
     @FXML void addClicked()
@@ -131,11 +145,13 @@ public class MenuSceneController
     
     @FXML void editClicked()
     {
+        System.out.println("Edit Clicked");
         
     }
     
     @FXML void deleteClicked()
     {
+        System.out.println("Delete Clicked");
         
     }
     

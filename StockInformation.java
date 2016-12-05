@@ -20,12 +20,12 @@ public  class StockInformation{
     {
         this.productName = new SimpleStringProperty(productName);
     }
-    
+
     public String getProductLocation()
     {
         return productLocation.get();
     }
-    
+
     public void setProductLocation (String productLocation)
     {
         this.productLocation = new SimpleStringProperty(productLocation);
@@ -45,7 +45,7 @@ public  class StockInformation{
         return productID;
     }
 
-    public StockInformation(int productID,double productPrice, String productName, String productLocation)
+    public StockInformation(int productID, double productPrice, String productName, String productLocation)
     {
         this.productID = productID;
         setProductPrice(productPrice);
@@ -56,7 +56,7 @@ public  class StockInformation{
     public static void readAll(List<StockInformation> list)
     {
         list.clear();
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice FROM StockInformation");
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationStored FROM StockInformation");
 
         if (statement !=null)
         {
@@ -67,9 +67,9 @@ public  class StockInformation{
                 try {
                     while (results.next()){
                         list.add( new StockInformation(results.getInt("ProductID"),
-                        results.getDouble("ProductPrice"),
-                        results.getString("ProductName"),
-                        results.getString("ProductLocation")));
+                                results.getDouble("ProductPrice"),
+                                results.getString("ProductName"),
+                                results.getString("LocationStored")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -79,18 +79,18 @@ public  class StockInformation{
             }
         }
     }
-    
-        public static StockInformation getById(int id)
+
+    public static StockInformation getByProductID(int productID)
     {
         StockInformation stockInformation = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT id, name, categoryId FROM StockInformations WHERE id = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationStored FROM StockInformation WHERE id = ?"); 
 
         try 
         {
             if (statement != null)
             {
-                statement.setInt(1, id);
+                statement.setInt(1, productID);
                 ResultSet results = Application.database.runQuery(statement);
 
                 if (results != null)
@@ -104,29 +104,29 @@ public  class StockInformation{
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
 
-        return StockInformation;
+        return stockInformation;
     }
 
-    public static void deleteById(int id)
+    /* public static void deleteById(int id)
     {
-        try 
-        {
+    try 
+    {
 
-            PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformations WHERE id = ?");             
-            statement.setInt(1, id);
+    PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformations WHERE id = ?");             
+    statement.setInt(1, id);
 
-            if (statement != null)
-            {
-                Application.database.executeUpdate(statement);
-            }
-        }
-        catch (SQLException resultsexception)
-        {
-            System.out.println("Database result processing error: " + resultsexception.getMessage());
-        }
-
+    if (statement != null)
+    {
+    Application.database.executeUpdate(statement);
     }
-    
+    }
+    catch (SQLException resultsexception)
+    {
+    System.out.println("Database result processing error: " + resultsexception.getMessage());
+    }
+
+    } */
+
     public void save()    
     {
         PreparedStatement statement;
@@ -134,32 +134,33 @@ public  class StockInformation{
         try 
         {
 
-            if (id == 0)
+            if (productID == 0)
             {
 
-                statement = Application.database.newStatement("SELECT id FROM StockInformations ORDER BY id DESC");             
+                statement = Application.database.newStatement("SELECT ProductID FROM StockInformation ORDER BY ProductID DESC");             
 
                 if (statement != null)	
                 {
                     ResultSet results = Application.database.runQuery(statement);
                     if (results != null)
                     {
-                        id = results.getInt("id") + 1;
+                        productID = results.getInt("ProductID") + 1;
                     }
                 }
 
-                statement = Application.database.newStatement("INSERT INTO StockInformations (id, name, categoryId) VALUES (?, ?, ?)");             
-                statement.setInt(1, id);
-                statement.setString(2, name);
-                statement.setInt(3, categoryId);         
+                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductID, ProductName, ProductPrice, LocationStored) VALUES (?, ?, ?, ?)");             
+                statement.setInt(1, getProductID());
+                statement.setString(2, getProductName());
+                statement.setDouble(3, getProductPrice()); 
+                statement.setString(4, getProductLocation());
 
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE StockInformations SET name = ?, categoryId = ? WHERE id = ?");             
-                statement.setString(1, name);
-                statement.setInt(2, categoryId);   
-                statement.setInt(3, id);
+                statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationStored = ? WHERE ProductID = ?");             
+                statement.setString(1, getProductName());
+                statement.setDouble(2, getProductPrice());   
+                statement.setString(3, getProductLocation());
             }
 
             if (statement != null)

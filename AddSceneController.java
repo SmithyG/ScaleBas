@@ -19,7 +19,7 @@ public class AddSceneController
     @FXML   private Button saveButton;
     @FXML   private Button cancelButton;
 
-    private StockInformation StockInformation;
+    private StockInformation stockInformation;
 
     public AddSceneController()
     {
@@ -58,7 +58,7 @@ public class AddSceneController
         }
 
         System.out.println("Populating scene with items from the database...");        
-ObservableList<StockInformation> productList = FXCollections.observableArrayList();
+        ObservableList<StockInformation> productList = FXCollections.observableArrayList();
         StockInformation.readAll(productList); 
 
     }
@@ -72,11 +72,12 @@ ObservableList<StockInformation> productList = FXCollections.observableArrayList
     {
         System.out.println("Save button clicked!");        
 
-        StockInformation.setProductName(nameTextField.getText());
-        StockInformation.setProductPrice(Double.parseDouble(priceTextField.getText()));
-        StockInformation.setProductLocation(locationTextField.getText());
+        StockInformation stockInformation = new StockInformation(0,
+                Double.parseDouble(priceTextField.getText()),        
+                nameTextField.getText(), 
+                locationTextField.getText());
 
-        //StockInformation.save();
+        stockInformation.save();
 
         parent.initialize();
 

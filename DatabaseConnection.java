@@ -51,6 +51,18 @@ public class DatabaseConnection {
             return null;
         }
     }
+    
+     public void executeUpdate(PreparedStatement statement)
+    {               
+        try {            
+            statement.executeUpdate();                       
+        }
+        catch (SQLException queryexception) 
+        {
+            System.out.println("Database update error: " + queryexception.getMessage());
+        }
+    }
+
 
     public void disconnect()
     {

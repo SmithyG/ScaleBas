@@ -13,9 +13,9 @@
             <TextField fx:id="searchField" onKeyReleased="#textEntered" promptText="Search..." />
             <HBox prefWidth="200.0">
                <children>
-                  <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Add" />
-                  <Button fx:id="editButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Edit" />
-                  <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Delete" />
+                  <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#addClicked" text="Add" />
+                  <Button fx:id="editButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#editClicked" text="Edit" />
+                  <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deleteClicked" text="Delete" />
                </children>
             </HBox>
             <TableView fx:id="inventoryTable" minWidth="300.0" />

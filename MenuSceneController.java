@@ -28,6 +28,9 @@ public class MenuSceneController
     @FXML private Button chartsButton;
     @FXML private TableView<StockInformation> inventoryTable;
     @FXML private TextField searchField;
+    @FXML private Button addButton;
+    @FXML private Button editButton;
+    @FXML private Button deleteButton;
     
 
     public MenuSceneController()
@@ -54,6 +57,9 @@ public class MenuSceneController
             assert tableVBox != null : "Can't find tableVBox.";
             assert backgroundVBox != null : "Can't find backgroundVBox.";
             assert searchField != null : "Can't find search field.";
+            assert addButton != null : "Can't find add button.";
+            assert editButton != null : "Can't find edit button.";
+            assert deleteButton != null : "Can't find delete button.";
         }
         catch (AssertionError ae)
         {
@@ -73,13 +79,18 @@ public class MenuSceneController
 
         TableColumn<StockInformation, String> productNameColumn = new TableColumn<>("Product Name");
         productNameColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("ProductName"));
-        productNameColumn.setMinWidth(150);
+        productNameColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productNameColumn);
 
         TableColumn<StockInformation, Double> productPriceColumn = new TableColumn<>("Product Price");
         productPriceColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Double>("ProductPrice"));
-        productPriceColumn.setMinWidth(150);
+        productPriceColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productPriceColumn);
+        
+        TableColumn<StockInformation, String> productLocationColumn = new TableColumn<>("Product Location");
+        productLocationColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationStored"));
+        productLocationColumn.setMinWidth(25);
+        inventoryTable.getColumns().add(productLocationColumn);
 
         inventoryTable.setItems(productList);
     }
@@ -113,6 +124,21 @@ public class MenuSceneController
         System.out.println("Charts clicked");
     }
     
+    @FXML void addClicked()
+    {
+        openNewScene(0);
+    }
+    
+    @FXML void editClicked()
+    {
+        
+    }
+    
+    @FXML void deleteClicked()
+    {
+        
+    }
+    
     @FXML void textEntered()
     {
         searchFieldContents = searchField.getCharacters();
@@ -122,7 +148,7 @@ public class MenuSceneController
         void openNewScene(int id)
     {
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("AddScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("Add.fxml"));
 
         try
         {
@@ -133,7 +159,7 @@ public class MenuSceneController
             AddSceneController controller2 = loader.getController();
             controller2.prepareStageEvents(stage2);
 
-            controller2.setParent(this);     
+            controller2.setParent(this);
 
         }
         catch (Exception ex)

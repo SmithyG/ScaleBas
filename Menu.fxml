@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="backgroundHBox" alignment="CENTER" maxHeight="425.0" maxWidth="800.0" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuSceneController">
+<HBox fx:id="backgroundHBox" alignment="CENTER" maxHeight="425.0" maxWidth="800.0" minHeight="425.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuSceneController">
    <children>
       <VBox fx:id="tableVBox" HBox.hgrow="ALWAYS">
          <children>
             <TextField fx:id="searchField" onKeyReleased="#textEntered" promptText="Search..." />
-            <HBox prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                <children>
-                  <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#addClicked" text="Add" />
-                  <Button fx:id="editButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#editClicked" text="Edit" />
-                  <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deleteClicked" text="Delete" />
+                  <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#addClicked" text="Add">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="editButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#editClicked" text="Edit">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deleteButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deleteClicked" text="Delete">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="warehouseButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#warehouseClicked" text="Warehouse Visualisation">
+                     <HBox.margin>
+                        <Insets left="140.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deliveriesButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deliveriesClicked" text="Pending Deliveries" />
+                  <Button fx:id="chartsButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#chartsClicked" text="Charts" textAlignment="CENTER" />
                </children>
             </HBox>
-            <TableView fx:id="inventoryTable" minWidth="300.0" onKeyPressed="#tableViewClicked" onMouseClicked="#tableViewClicked" />
-         </children>
-      </VBox>
-      <VBox fx:id="backgroundVBox" minWidth="500.0" HBox.hgrow="ALWAYS">
-         <children>
-            <HBox alignment="TOP_RIGHT" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button fx:id="deliveriesButton" mnemonicParsing="false" onMouseClicked="#deliveriesClicked" text="Pending Deliveries" />
-                  <Button fx:id="warehouseButton" mnemonicParsing="false" onMouseClicked="#warehouseClicked" text="Warehouse Visualisation" />
-                  <Button fx:id="chartsButton" mnemonicParsing="false" onMouseClicked="#chartsClicked" text="Charts" />
-               </children>
-            </HBox>
+            <TableView fx:id="inventoryTable" minWidth="300.0" onKeyReleased="#tableViewClicked" onMouseClicked="#tableViewClicked" prefWidth="556.0" />
          </children>
       </VBox>
    </children>

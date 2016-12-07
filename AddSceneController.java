@@ -2,9 +2,11 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import javafx.collections.ObservableList;
+import java.util.List;
 import javafx.collections.FXCollections;
 
 public class AddSceneController
@@ -15,7 +17,7 @@ public class AddSceneController
 
     @FXML   private TextField nameTextField;
     @FXML   private TextField priceTextField;
-    @FXML   private TextField locationTextField;
+    @FXML   private ChoiceBox locationChoiceBox;
     @FXML   private Button saveButton;
     @FXML   private Button cancelButton;
 
@@ -46,8 +48,8 @@ public class AddSceneController
         try
         {
             assert nameTextField != null : "Can't find nameTextField";
-            assert priceTextField != null : "Can't find nameTextField";
-            assert locationTextField != null : "Can't find nameTextField";
+            assert priceTextField != null : "Can't find priceTextField";
+            assert locationChoiceBox != null : "Can't find locationChoiceBox";
             assert saveButton != null : "Can't find saveButton";
             assert cancelButton != null : "Can't find cancelButton";
         }
@@ -60,6 +62,9 @@ public class AddSceneController
         System.out.println("Populating scene with items from the database...");        
         ObservableList<StockInformation> productList = FXCollections.observableArrayList();
         StockInformation.readAll(productList); 
+        //List<Location> productList = locationChoiceBox.getItems();
+        // Location.readAll(productList);
+        // locationChoiceBox.getSelectionModel().selectFirst();
 
     }
 
@@ -68,14 +73,27 @@ public class AddSceneController
         this.parent = parent;
     }
 
+    /* public void loadItem(int productID)
+    {
+    stockInformation = StockInformation.getById(productID);
+    nameTextField.setText(stockInformation.name);
+
+    List<Location> productList = locationChoiceBox.getItems();
+
+    for(Location c : productList)
+    {
+    if (c.productID == stock
+    }
+    } */
+
     @FXML   void saveButtonClicked()
     {
         System.out.println("Save button clicked!");        
 
         StockInformation stockInformation = new StockInformation(0,
                 Double.parseDouble(priceTextField.getText()),        
-                nameTextField.getText(), 
-                locationTextField.getText());
+                nameTextField.getText()
+            );
 
         stockInformation.save();
 

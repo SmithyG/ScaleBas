@@ -56,7 +56,7 @@ public  class StockInformation{
     public static void readAll(List<StockInformation> list)
     {
         list.clear();
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationStored FROM StockInformation");
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation");
 
         if (statement !=null)
         {
@@ -69,7 +69,7 @@ public  class StockInformation{
                         list.add( new StockInformation(results.getInt("ProductID"),
                                 results.getDouble("ProductPrice"),
                                 results.getString("ProductName"),
-                                results.getString("LocationStored")));
+                                results.getString("LocationID")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -84,7 +84,7 @@ public  class StockInformation{
     {
         StockInformation stockInformation = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationStored FROM StockInformation WHERE id = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation WHERE id = ?"); 
 
         try 
         {
@@ -148,7 +148,7 @@ public  class StockInformation{
                     }
                 }
 
-                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductID, ProductName, ProductPrice, LocationStored) VALUES (?, ?, ?, ?)");             
+                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductID, ProductName, ProductPrice, LocationID) VALUES (?, ?, ?, ?)");             
                 statement.setInt(1, getProductID());
                 statement.setString(2, getProductName());
                 statement.setDouble(3, getProductPrice()); 
@@ -157,7 +157,7 @@ public  class StockInformation{
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationStored = ? WHERE ProductID = ?");             
+                statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationID = ? WHERE ProductID = ?");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
                 statement.setString(3, getProductLocation());

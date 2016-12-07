@@ -22,7 +22,6 @@ public class MenuSceneController
 
     @FXML private HBox backgroundHBox;
     @FXML private VBox tableVBox;
-    @FXML private VBox backgroundVBox;
     @FXML private Button warehouseButton;
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
@@ -55,7 +54,6 @@ public class MenuSceneController
             assert inventoryTable != null : "Can't find inventory table.";
             assert backgroundHBox != null : "Can't find backgroundHBox.";
             assert tableVBox != null : "Can't find tableVBox.";
-            assert backgroundVBox != null : "Can't find backgroundVBox.";
             assert searchField != null : "Can't find search field.";
             assert addButton != null : "Can't find add button.";
             assert editButton != null : "Can't find edit button.";
@@ -88,7 +86,7 @@ public class MenuSceneController
         inventoryTable.getColumns().add(productPriceColumn);
         
         TableColumn<StockInformation, String> productLocationColumn = new TableColumn<>("Product Location");
-        productLocationColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationStored"));
+        productLocationColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationID"));
         productLocationColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productLocationColumn);
 
@@ -119,7 +117,7 @@ public class MenuSceneController
         }
         else
         {
-            System.out.println(selectedItem + " (id: " + selectedItem.getProductID() + ") is selected.");
+            System.out.println("(id: " + selectedItem.getProductID() + ") is selected.");
         }
     }
     

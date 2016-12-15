@@ -30,7 +30,6 @@ public class MenuSceneController
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
-    
 
     public MenuSceneController()
     {
@@ -84,7 +83,7 @@ public class MenuSceneController
         productPriceColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Double>("ProductPrice"));
         productPriceColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productPriceColumn);
-        
+
         TableColumn<StockInformation, String> productLocationColumn = new TableColumn<>("Product Location");
         productLocationColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationID"));
         productLocationColumn.setMinWidth(25);
@@ -92,7 +91,7 @@ public class MenuSceneController
 
         inventoryTable.setItems(productList);
     }
-    
+
     public void prepareStageEvents(Stage stage)
     {
         System.out.println("Preparing stage events...");
@@ -106,7 +105,7 @@ public class MenuSceneController
                 }
             });
     }
-    
+
     @FXML   void tableViewClicked()
     {
         StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
@@ -120,7 +119,7 @@ public class MenuSceneController
             System.out.println("(id: " + selectedItem.getProductID() + ") is selected.");
         }
     }
-    
+
     @FXML void warehouseClicked()
     {
         System.out.println("Warehouse Clicked");
@@ -135,34 +134,34 @@ public class MenuSceneController
     {
         System.out.println("Charts Clicked");
     }
-    
+
     @FXML void addClicked()
     {
         openNewScene(0);
     }
-    
+
     @FXML void editClicked()
     {
         System.out.println("Edit Clicked");
-        
+
     }
-    
+
     @FXML void deleteClicked()
     {
         System.out.println("Delete Clicked");
-        
+
     }
-    
+
     @FXML void textEntered()
     {
         searchFieldContents = searchField.getCharacters();
         System.out.println(searchFieldContents.toString());
     }
-    
-        void openNewScene(int id)
+
+    void openNewScene(int id)
     {
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("Add.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml"));
 
         try
         {
@@ -170,7 +169,7 @@ public class MenuSceneController
             stage2.setTitle("Add");
             stage2.setScene(new Scene(loader.load()));
             stage2.show();           
-            AddSceneController controller2 = loader.getController();
+            EditStockController controller2 = loader.getController();
             controller2.prepareStageEvents(stage2);
 
             controller2.setParent(this);

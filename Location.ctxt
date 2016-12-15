@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=id\ locationName
+comment0.target=Location(int,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ toString()
+comment2.params=list
+comment2.target=void\ readAll(java.util.List)
+numComments=3

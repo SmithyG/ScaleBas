@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 public  class StockInformation{
     private int productID;
     private StringProperty productName;
-    private StringProperty productLocation;
+    private int locationID;
     private DoubleProperty productPrice;
     public String getProductName() 
     {
@@ -21,17 +21,12 @@ public  class StockInformation{
         this.productName = new SimpleStringProperty(productName);
     }
 
-    public String getProductLocation()
+    public int getLocationID()
     {
-        return productLocation.get();
+        return locationID;
     }
 
-    public void setProductLocation (String productLocation)
-    {
-        this.productLocation = new SimpleStringProperty(productLocation);
-    }
-
-    public double getProductPrice() {
+   public double getProductPrice() {
         return productPrice.get();
     }
 
@@ -45,12 +40,12 @@ public  class StockInformation{
         return productID;
     }
 
-    public StockInformation(int productID, double productPrice, String productName, String productLocation)
+    public StockInformation(int productID, double productPrice, String productName, int locationID)
     {
         this.productID = productID;
         setProductPrice(productPrice);
         setProductName(productName);
-        setProductLocation(productLocation);
+        this.locationID = locationID;
     }
 
     public static void readAll(List<StockInformation> list)
@@ -69,7 +64,7 @@ public  class StockInformation{
                         list.add( new StockInformation(results.getInt("ProductID"),
                                 results.getDouble("ProductPrice"),
                                 results.getString("ProductName"),
-                                results.getString("LocationID")));
+                                results.getInt("LocationID")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -95,7 +90,7 @@ public  class StockInformation{
 
                 if (results != null)
                 {
-                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getString("productLocation"));
+                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getInt("locationID"));
                 }
             }
         }
@@ -152,7 +147,7 @@ public  class StockInformation{
                 statement.setInt(1, getProductID());
                 statement.setString(2, getProductName());
                 statement.setDouble(3, getProductPrice()); 
-                statement.setString(4, getProductLocation());
+                statement.setInt(4, getLocationID());
 
             }
             else
@@ -160,7 +155,7 @@ public  class StockInformation{
                 statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationID = ? WHERE ProductID = ?");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
-                statement.setString(3, getProductLocation());
+                statement.setInt(3, getLocationID());
             }
 
             if (statement != null)

@@ -102,13 +102,13 @@ public  class StockInformation{
         return stockInformation;
     }
 
-    /* public static void deleteById(int id)
+    public static void deleteByProductID(int productID)
     {
     try 
     {
 
-    PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformations WHERE id = ?");             
-    statement.setInt(1, id);
+    PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformation WHERE ProductID = ?");             
+    statement.setInt(1, productID);
 
     if (statement != null)
     {
@@ -120,7 +120,7 @@ public  class StockInformation{
     System.out.println("Database result processing error: " + resultsexception.getMessage());
     }
 
-    } */
+    } 
 
     public void save()    
     {

@@ -74,43 +74,43 @@ public class EditStockController
 
     /*public void loadItem(int productID)
     {
-        stockInformation = StockInformation.getByProductID(productID);
-        nameTextField.setText(stockInformation.getProductName());
+    stockInformation = StockInformation.getByProductID(productID);
+    nameTextField.setText(stockInformation.getProductName());
 
-        List<Location> productList = locationChoiceBox.getItems();
+    List<Location> productList = locationChoiceBox.getItems();
 
-        for(Location c : productList)
-        {
-            if (c.productID == stockInformation.productID)
-            {
-                locationChoiceBox.getSelectionModel().select(c);
-            }
-        } 
+    for(Location c : productList)
+    {
+    if (c.productID == stockInformation.productID)
+    {
+    locationChoiceBox.getSelectionModel().select(c);
     }
-    */
+    } 
+    }
+     */
 
-        @FXML   void saveButtonClicked()
-        {
-            System.out.println("Save button clicked!");        
+    @FXML   void saveButtonClicked()
+    {
+     /*   System.out.println("Save button clicked!");        
 
-            StockInformation stockInformation = new StockInformation(0,
-            Double.parseDouble(priceTextField.getText()),        
-            nameTextField.getText(),
-            locationChoiceBox.getSelectionModel().getSelectedItem()
+        StockInformation stockInformation = new StockInformation(0,
+                Double.parseDouble(priceTextField.getText()),        
+                nameTextField.getText(),
+                locationChoiceBox.getSelectionModel().getSelectedItem()
             );
 
-            stockInformation.save();
+        stockInformation.save(); */
 
-            parent.initialize();
+        parent.initialize();
 
-            stage.close();
-        }
-
-        @FXML   void cancelButtonClicked()
-        {
-            System.out.println("Cancel button clicked!");        
-            stage.close();
-        }
-
+        stage.close();
     }
+
+    @FXML   void cancelButtonClicked()
+    {
+        System.out.println("Cancel button clicked!");        
+        stage.close();
+    }
+
+}
 

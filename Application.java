@@ -3,6 +3,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public class Application
 {
@@ -27,6 +28,8 @@ public class Application
             stage.show();           
             MenuSceneController controller = loader.getController();
             controller.prepareStageEvents(stage);
+            stage.getIcons().add(new Image("scalebaselogo.png"));
+
         }
         catch (Exception ex)
         {

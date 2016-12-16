@@ -65,9 +65,8 @@ public class MenuSceneController
         }
 
         System.out.println("Populating scene with items from the database...");        
-
         ObservableList<StockInformation> productList = FXCollections.observableArrayList();
-        StockInformation.readAll(productList); 
+        StockInformation.readAll(productList);
 
         TableColumn<StockInformation, Integer> productIDColumn = new TableColumn<>("Product ID");
         productIDColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Integer>("ProductID"));
@@ -148,8 +147,9 @@ public class MenuSceneController
 
     @FXML void deleteClicked()
     {
-        System.out.println("Delete Clicked");
-
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+        StockInformation.deleteByProductID(selectedItem.getProductID());
+        initialize();
     }
 
     @FXML void textEntered()
@@ -181,5 +181,5 @@ public class MenuSceneController
         }
 
     }
-
 }
+

@@ -72,36 +72,45 @@ public class EditStockController
         this.parent = parent;
     }
 
-    /*public void loadItem(int productID)
+    public void loadItem(int productID)
     {
-    stockInformation = StockInformation.getByProductID(productID);
-    nameTextField.setText(stockInformation.getProductName());
+        stockInformation = StockInformation.getByProductID(productID);
+        nameTextField.setText(stockInformation.getProductName());
 
-    List<Location> productList = locationChoiceBox.getItems();
+        List<Location> productList = locationChoiceBox.getItems();
 
-    for(Location c : productList)
-    {
-    if (c.productID == stockInformation.productID)
-    {
-    locationChoiceBox.getSelectionModel().select(c);
+        for(Location l : productList)
+        {
+            if (l.id == stockInformation.getProductID())
+            {
+                locationChoiceBox.getSelectionModel().select(l);
+            }
+        } 
     }
-    } 
-    }
-     */
 
     @FXML   void saveButtonClicked()
     {
-     /*   System.out.println("Save button clicked!");        
+        System.out.println("Save button clicked!");   
 
-        StockInformation stockInformation = new StockInformation(0,
-                Double.parseDouble(priceTextField.getText()),        
-                nameTextField.getText(),
-                locationChoiceBox.getSelectionModel().getSelectedItem()
-            );
+        /* StockInformation stockInformation = new StockInformation(0,
+        Double.parseDouble(priceTextField.getText()),        
+        nameTextField.getText(),
+        locationChoiceBox.getSelectionModel().getSelectedItem()
+        ); */
 
-        stockInformation.save(); */
+        if (stockInformation == null)
+        {
+            stockInformation = new StockInformation(0, 0 , "", 0);
+        }
 
-        parent.initialize();
+        stockInformation.setProductName(nameTextField.getText());
+        stockInformation.setProductPrice(Double.parseDouble(priceTextField.getText()));
+        Location selectedLocation = (Location) locationChoiceBox.getSelectionModel().getSelectedItem();
+        stockInformation.setLocationID(selectedLocation.id);
+
+        stockInformation.save(); 
+
+        parent.refreshTable();
 
         stage.close();
     }

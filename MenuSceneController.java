@@ -14,6 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import java.util.Optional;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ButtonType;
+import java.util.Iterator;
 
 public class MenuSceneController
 {  
@@ -89,6 +95,7 @@ public class MenuSceneController
         inventoryTable.getColumns().add(productLocationColumn);
 
         inventoryTable.setItems(productList);
+
     }
 
     public void prepareStageEvents(Stage stage)
@@ -103,6 +110,13 @@ public class MenuSceneController
                     Application.terminate();
                 }
             });
+    }
+
+    public void refreshTable(){
+        System.out.println("Populating scene with items from the database...");        
+        ObservableList<StockInformation> productList = FXCollections.observableArrayList();
+        StockInformation.readAll(productList);
+        inventoryTable.setItems(productList);
     }
 
     @FXML   void tableViewClicked()
@@ -142,14 +156,24 @@ public class MenuSceneController
     @FXML void editClicked()
     {
         System.out.println("Edit Clicked");
-
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+        openNewScene(0);
     }
 
     @FXML void deleteClicked()
     {
-        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
-        StockInformation.deleteByProductID(selectedItem.getProductID());
-        initialize();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Item");
+        alert.setContentText("Are you sure you want to delete this?");
+        System.out.println("Delete was clicked!");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+            StockInformation.deleteByProductID(selectedItem.getProductID());
+            refreshTable();
+            System.out.println("Item " + selectedItem.getProductName() +" deleted");
+        }
     }
 
     @FXML void textEntered()

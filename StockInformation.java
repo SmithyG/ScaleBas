@@ -25,6 +25,11 @@ public  class StockInformation{
     {
         return locationID;
     }
+    
+    public void setLocationID(int locationID)
+    {
+        this.locationID = locationID;
+    }
 
    public double getProductPrice() {
         return productPrice.get();

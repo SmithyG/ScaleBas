@@ -84,8 +84,8 @@ public class MenuSceneController
         productNameColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productNameColumn);
 
-        TableColumn<StockInformation, Double> productPriceColumn = new TableColumn<>("Product Price");
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, Double>("ProductPrice"));
+        TableColumn<StockInformation, String> productPriceColumn = new TableColumn<>("Product Price");
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("ProductPriceString"));
         productPriceColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productPriceColumn);
 
@@ -162,17 +162,19 @@ public class MenuSceneController
 
     @FXML void deleteClicked()
     {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Delete Item");
-        alert.setContentText("Are you sure you want to delete this?");
-        System.out.println("Delete was clicked!");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
-            StockInformation.deleteByProductID(selectedItem.getProductID());
-            refreshTable();
-            System.out.println("Item " + selectedItem.getProductName() +" deleted");
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+        if (selectedItem !=null){
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Delete Item");
+            alert.setContentText("Are you sure you want to delete this?");
+            System.out.println("Delete was clicked!");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                StockInformation.deleteByProductID(selectedItem.getProductID());
+                refreshTable();
+                System.out.println("Item " + selectedItem.getProductName() +" deleted");
+            }
         }
     }
 

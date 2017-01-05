@@ -98,13 +98,16 @@ public class EditStockController
         locationChoiceBox.getSelectionModel().getSelectedItem()
         ); */
 
+        double price = Double.parseDouble(priceTextField.getText());
+
+        price = Math.rint(price * 100) / 100;		
+
         if (stockInformation == null)
         {
             stockInformation = new StockInformation(0, 0 , "", 0);
         }
-
         stockInformation.setProductName(nameTextField.getText());
-        stockInformation.setProductPrice(Double.parseDouble(priceTextField.getText()));
+        stockInformation.setProductPrice(price);
         Location selectedLocation = (Location) locationChoiceBox.getSelectionModel().getSelectedItem();
         stockInformation.setLocationID(selectedLocation.id);
 

@@ -10,7 +10,10 @@ public  class StockInformation{
     private int productID;
     private StringProperty productName;
     private int locationID;
-    private DoubleProperty productPrice;
+
+    private double productPrice;
+    private StringProperty productPriceString;
+
     public String getProductName() 
     {
         return productName.get();
@@ -25,19 +28,30 @@ public  class StockInformation{
     {
         return locationID;
     }
-    
+
     public void setLocationID(int locationID)
     {
         this.locationID = locationID;
     }
 
-   public double getProductPrice() {
-        return productPrice.get();
+    public String getProductPriceString() {
+
+        String candidatePrice = Double.toString(getProductPrice());
+
+        if(candidatePrice.endsWith(".0") || candidatePrice.endsWith(".1") || candidatePrice.endsWith(".2") || candidatePrice.endsWith(".3") || candidatePrice.endsWith(".4") || candidatePrice.endsWith(".5") || candidatePrice.endsWith(".6") || candidatePrice.endsWith(".7") || candidatePrice.endsWith(".8") || candidatePrice.endsWith(".9")){
+            candidatePrice = candidatePrice + "0";
+        }
+
+        return candidatePrice;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
     }
 
     public void setProductPrice(double productPrice)
     {
-        this.productPrice = new SimpleDoubleProperty(productPrice);
+        this.productPrice = productPrice;
     }
 
     public int getProductID()
@@ -109,21 +123,21 @@ public  class StockInformation{
 
     public static void deleteByProductID(int productID)
     {
-    try 
-    {
+        try 
+        {
 
-    PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformation WHERE ProductID = ?");             
-    statement.setInt(1, productID);
+            PreparedStatement statement = Application.database.newStatement("DELETE FROM StockInformation WHERE ProductID = ?");             
+            statement.setInt(1, productID);
 
-    if (statement != null)
-    {
-    Application.database.executeUpdate(statement);
-    }
-    }
-    catch (SQLException resultsexception)
-    {
-    System.out.println("Database result processing error: " + resultsexception.getMessage());
-    }
+            if (statement != null)
+            {
+                Application.database.executeUpdate(statement);
+            }
+        }
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
 
     } 
 

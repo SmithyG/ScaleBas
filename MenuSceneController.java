@@ -157,7 +157,7 @@ public class MenuSceneController
     {
         System.out.println("Edit Clicked");
         StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
-        openNewScene(0);
+        openNewScene(selectedItem.getProductID());
     }
 
     @FXML void deleteClicked()
@@ -199,6 +199,7 @@ public class MenuSceneController
             controller2.prepareStageEvents(stage2);
 
             controller2.setParent(this);
+            if (id !=0) controller2.loadItem(id);
 
         }
         catch (Exception ex)

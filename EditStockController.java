@@ -76,12 +76,13 @@ public class EditStockController
     {
         stockInformation = StockInformation.getByProductID(productID);
         nameTextField.setText(stockInformation.getProductName());
+        priceTextField.setText(stockInformation.getProductPriceString());
 
         List<Location> productList = locationChoiceBox.getItems();
 
         for(Location l : productList)
         {
-            if (l.id == stockInformation.getProductID())
+            if (l.id == stockInformation.getLocationID())
             {
                 locationChoiceBox.getSelectionModel().select(l);
             }

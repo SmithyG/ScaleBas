@@ -98,7 +98,7 @@ public  class StockInformation{
     {
         StockInformation stockInformation = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation WHERE id = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation WHERE ProductID = ?"); 
 
         try 
         {

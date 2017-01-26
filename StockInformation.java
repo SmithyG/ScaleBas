@@ -149,24 +149,12 @@ public  class StockInformation{
         {
 
             if (productID == 0)
-            {
+            {                
 
-                statement = Application.database.newStatement("SELECT ProductID FROM StockInformation ORDER BY ProductID DESC");             
-
-                if (statement != null)	
-                {
-                    ResultSet results = Application.database.runQuery(statement);
-                    if (results != null)
-                    {
-                        productID = results.getInt("ProductID") + 1;
-                    }
-                }
-
-                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductID, ProductName, ProductPrice, LocationID) VALUES (?, ?, ?, ?)");             
-                statement.setInt(1, getProductID());
-                statement.setString(2, getProductName());
-                statement.setDouble(3, getProductPrice()); 
-                statement.setInt(4, getLocationID());
+                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductName, ProductPrice, LocationID) VALUES (?, ?, ?)");             
+                statement.setString(1, getProductName());
+                statement.setDouble(2, getProductPrice()); 
+                statement.setInt(3, getLocationID());
 
             }
             else
@@ -175,6 +163,7 @@ public  class StockInformation{
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
                 statement.setInt(3, getLocationID());
+                statement.setInt(4, getProductID()); //TY BASED ANDREAS
             }
 
             if (statement != null)

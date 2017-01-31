@@ -11,6 +11,8 @@ public  class StockInformation{
     private StringProperty productName;
     private int locationID;
 
+    private StringProperty locationName;
+
     private double productPrice;
     private StringProperty productPriceString;
 
@@ -37,11 +39,7 @@ public  class StockInformation{
     public String getProductPriceString() {
 
         String candidatePrice = Double.toString(getProductPrice());
-
-        if(candidatePrice.endsWith(".0") || candidatePrice.endsWith(".1") || candidatePrice.endsWith(".2") || candidatePrice.endsWith(".3") || candidatePrice.endsWith(".4") || candidatePrice.endsWith(".5") || candidatePrice.endsWith(".6") || candidatePrice.endsWith(".7") || candidatePrice.endsWith(".8") || candidatePrice.endsWith(".9")){
-            candidatePrice = candidatePrice + "0";
-        }
-
+        if (candidatePrice.charAt(candidatePrice.length() - 2) == '.') candidatePrice += "0";        
         return candidatePrice;
     }
 
@@ -59,18 +57,38 @@ public  class StockInformation{
         return productID;
     }
 
-    public StockInformation(int productID, double productPrice, String productName, int locationID)
+    public void setLocationName(String locationName)
+    {
+        this.locationName = new SimpleStringProperty(locationName);
+    }
+    
+    public String getLocationName(String locationName)
+    {
+        return locationName;
+    }
+
+    public StockInformation()
+    {        
+    }
+
+    public StockInformation(int productID, double productPrice, String productName, int locationID, String locationName)
     {
         this.productID = productID;
         setProductPrice(productPrice);
         setProductName(productName);
         this.locationID = locationID;
+        setLocationName(locationName);
     }
 
     public static void readAll(List<StockInformation> list)
     {
         list.clear();
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation");
+
+        String sql = "SELECT StockInformation.ProductID, StockInformation.ProductName, StockInformation.ProductPrice, "; 
+        sql += "WarehouseLocation.LocationID, WarehouseLocation.LocationName ";
+        sql += "FROM StockInformation INNER JOIN WarehouseLocation ON StockInformation.LocationID = WarehouseLocation.LocationID";
+
+        PreparedStatement statement = Application.database.newStatement(sql);
 
         if (statement !=null)
         {
@@ -83,7 +101,8 @@ public  class StockInformation{
                         list.add( new StockInformation(results.getInt("ProductID"),
                                 results.getDouble("ProductPrice"),
                                 results.getString("ProductName"),
-                                results.getInt("LocationID")));
+                                results.getInt("LocationID"),
+                                results.getString("LocationName")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -109,7 +128,7 @@ public  class StockInformation{
 
                 if (results != null)
                 {
-                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getInt("locationID"));
+                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getInt("locationID"), "");
                 }
             }
         }

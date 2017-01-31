@@ -89,10 +89,15 @@ public class MenuSceneController
         productPriceColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productPriceColumn);
 
-        TableColumn<StockInformation, String> productLocationColumn = new TableColumn<>("Product Location");
-        productLocationColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationID"));
-        productLocationColumn.setMinWidth(25);
-        inventoryTable.getColumns().add(productLocationColumn);
+        TableColumn<StockInformation, String> productLocationIDColumn = new TableColumn<>("Product Location ID");
+        productLocationIDColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationID"));
+        productLocationIDColumn.setMinWidth(25);
+        inventoryTable.getColumns().add(productLocationIDColumn);
+        
+        TableColumn<StockInformation, String> productLocationNameColumn = new TableColumn<>("Product Location Name");
+        productLocationNameColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationName"));
+        productLocationNameColumn.setMinWidth(25);
+        inventoryTable.getColumns().add(productLocationNameColumn);
 
         inventoryTable.setItems(productList);
 

@@ -105,7 +105,7 @@ public class EditStockController
 
         if (stockInformation == null)
         {
-            stockInformation = new StockInformation(0, 0 , "", 0);
+            stockInformation = new StockInformation();
         }
         stockInformation.setProductName(nameTextField.getText());
         stockInformation.setProductPrice(price);

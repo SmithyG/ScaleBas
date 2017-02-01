@@ -57,14 +57,14 @@ public  class StockInformation{
         return productID;
     }
 
+    public String getLocationName()
+    {
+        return locationName.get();
+    }
+
     public void setLocationName(String locationName)
     {
         this.locationName = new SimpleStringProperty(locationName);
-    }
-    
-    public String getLocationName(String locationName)
-    {
-        return locationName;
     }
 
     public StockInformation()

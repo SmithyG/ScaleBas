@@ -9,8 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,9 +23,6 @@ public class MenuSceneController
 {  
     private static Stage stage;
     private CharSequence searchFieldContents;
-
-    @FXML private HBox backgroundHBox;
-    @FXML private VBox tableVBox;
     @FXML private Button warehouseButton;
     @FXML private Button deliveriesButton;
     @FXML private Button chartsButton;
@@ -57,8 +52,6 @@ public class MenuSceneController
             assert deliveriesButton != null : "Can't find deliveries button.";
             assert chartsButton != null : "Can't find charts button.";
             assert inventoryTable != null : "Can't find inventory table.";
-            assert backgroundHBox != null : "Can't find backgroundHBox.";
-            assert tableVBox != null : "Can't find tableVBox.";
             assert searchField != null : "Can't find search field.";
             assert addButton != null : "Can't find add button.";
             assert editButton != null : "Can't find edit button.";

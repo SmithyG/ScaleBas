@@ -69,15 +69,15 @@ public class DeliveriesSceneController
         productIDColumn.setMinWidth(25);
         deliveriesTable.getColumns().add(productIDColumn);
 
-        TableColumn<Deliveries, String> productNameColumn = new TableColumn<>("Product Name");
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("ProductName"));
-        productNameColumn.setMinWidth(25);
-        deliveriesTable.getColumns().add(productNameColumn);
-
         TableColumn<Deliveries, String> deliveryDateColumn = new TableColumn<>("Delivery Date");
         deliveryDateColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("DeliveryDate"));
         deliveryDateColumn.setMinWidth(25);
         deliveriesTable.getColumns().add(deliveryDateColumn);
+
+        TableColumn<Deliveries, String> productNameColumn = new TableColumn<>("Product Name");
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("ProductName"));
+        productNameColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(productNameColumn);
 
         deliveriesTable.setItems(deliveriesList);
 

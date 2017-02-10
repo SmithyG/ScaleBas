@@ -6,21 +6,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DeliveriesSceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DeliveriesSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <TableView fx:id="deliveriesTable" minWidth="300.0" onKeyReleased="#tableViewClicked" onMouseClicked="#tableViewClicked" prefWidth="556.0" />
+            <TableView fx:id="deliveriesTable" minWidth="300.0" prefWidth="556.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0">
          <children>
-            <Button fx:id="processButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" text="Process">
+            <Button fx:id="processButton" minWidth="100.0" mnemonicParsing="false" text="Process">
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#cancelButtonClicked" text="Cancel">
+            <Button fx:id="cancelButton" minWidth="100.0" mnemonicParsing="false" text="Cancel">
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </HBox.margin>

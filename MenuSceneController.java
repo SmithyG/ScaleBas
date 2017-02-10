@@ -86,7 +86,7 @@ public class MenuSceneController
         productLocationIDColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationID"));
         productLocationIDColumn.setMinWidth(25);
         inventoryTable.getColumns().add(productLocationIDColumn);
-        
+
         TableColumn<StockInformation, String> productLocationNameColumn = new TableColumn<>("Product Location Name");
         productLocationNameColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("LocationName"));
         productLocationNameColumn.setMinWidth(25);
@@ -138,7 +138,7 @@ public class MenuSceneController
 
     @FXML void deliveriesClicked()
     {
-        openNewScene(0);
+        openNewScene(-1);
     }
 
     @FXML void chartsClicked()
@@ -185,26 +185,46 @@ public class MenuSceneController
     void openNewScene(int id)
     {
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml"));
+        
+        if (id == 0){
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml"));
+            try
+            {
+                Stage stage2 = new Stage();
+                stage2.setTitle("Add");
+                stage2.setScene(new Scene(loader.load()));
+                stage2.show();           
+                EditStockController controller2 = loader.getController();
+                controller2.prepareStageEvents(stage2);
 
-        try
-        {
-            Stage stage2 = new Stage();
-            stage2.setTitle("Add");
-            stage2.setScene(new Scene(loader.load()));
-            stage2.show();           
-            EditStockController controller2 = loader.getController();
-            controller2.prepareStageEvents(stage2);
+                controller2.setParent(this);
+                if (id !=0) controller2.loadItem(id);
 
-            controller2.setParent(this);
-            if (id !=0) controller2.loadItem(id);
+            }
+            catch (Exception ex)
+            {
+                System.out.println(ex.getMessage());
+            }
 
+        }else if (id == -1){
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Deliveries.fxml"));
+            try
+            {
+                Stage stage3 = new Stage();
+                stage3.setTitle("Deliveries");
+                stage3.setScene(new Scene(loader.load()));
+                stage3.show();           
+                DeliveriesSceneController controller3 = loader.getController();
+                controller3.prepareStageEvents(stage3);
+
+                controller3.setParent(this);
+
+            }
+            catch (Exception ex)
+            {
+                System.out.println(ex.getMessage());
+            }
         }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-
     }
 }
 

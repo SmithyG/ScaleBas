@@ -10,6 +10,9 @@ public  class StockInformation{
     private int productID;
     private StringProperty productName;
     private int locationID;
+    
+    private int productQuantity;
+    private StringProperty productQuantityString;
 
     private StringProperty locationName;
 
@@ -67,17 +70,34 @@ public  class StockInformation{
         this.locationName = new SimpleStringProperty(locationName);
     }
 
+    public int getProductQuantity()
+    {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity)
+    {
+        this.productQuantity = productQuantity;
+    }
+
+    public String getProductQuantityString() {
+        String candidateQuantity = Integer.toString(getProductQuantity());  
+        return candidateQuantity;
+    }
+
+    
     public StockInformation()
     {        
     }
 
-    public StockInformation(int productID, double productPrice, String productName, int locationID, String locationName)
+    public StockInformation(int productID, double productPrice, String productName, int locationID, String locationName, int productQuantity)
     {
         this.productID = productID;
         setProductPrice(productPrice);
         setProductName(productName);
         this.locationID = locationID;
         setLocationName(locationName);
+        this.productQuantity = productQuantity;
     }
 
     public static void readAll(List<StockInformation> list)
@@ -85,8 +105,10 @@ public  class StockInformation{
         list.clear();
 
         String sql = "SELECT StockInformation.ProductID, StockInformation.ProductName, StockInformation.ProductPrice, "; 
-        sql += "WarehouseLocation.LocationID, WarehouseLocation.LocationName ";
-        sql += "FROM StockInformation INNER JOIN WarehouseLocation ON StockInformation.LocationID = WarehouseLocation.LocationID";
+        sql += "WarehouseLocation.LocationID, WarehouseLocation.LocationName, ";
+        sql += "StockCatalog.ProductQuantity ";
+        sql += "FROM StockInformation INNER JOIN WarehouseLocation ON StockInformation.LocationID = WarehouseLocation.LocationID ";
+        sql += "INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID";
 
         PreparedStatement statement = Application.database.newStatement(sql);
 
@@ -102,7 +124,8 @@ public  class StockInformation{
                                 results.getDouble("ProductPrice"),
                                 results.getString("ProductName"),
                                 results.getInt("LocationID"),
-                                results.getString("LocationName")));
+                                results.getString("LocationName"),
+                                results.getInt("ProductQuantity")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -117,7 +140,7 @@ public  class StockInformation{
     {
         StockInformation stockInformation = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT ProductID, ProductName, ProductPrice, LocationID FROM StockInformation WHERE ProductID = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT StockInformation.ProductID, StockInformation.ProductName, StockInformation.ProductPrice, StockInformation.LocationID, StockCatalog.ProductQuantity FROM StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID WHERE ProductID = ?"); 
 
         try 
         {
@@ -128,7 +151,7 @@ public  class StockInformation{
 
                 if (results != null)
                 {
-                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getInt("locationID"), "");
+                    stockInformation = new StockInformation(results.getInt("productID"), results.getDouble("productPrice"), results.getString("productName"), results.getInt("locationID"), "", results.getInt("productQuantity"));
                 }
             }
         }
@@ -170,19 +193,21 @@ public  class StockInformation{
             if (productID == 0)
             {                
 
-                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductName, ProductPrice, LocationID) VALUES (?, ?, ?)");             
+                statement = Application.database.newStatement("INSERT INTO StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID (StockInformation.ProductName, StockInformation.ProductPrice, StockInformation.LocationID, StockCatalog.ProductQuantity) VALUES (?, ?, ?,?)");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice()); 
                 statement.setInt(3, getLocationID());
+                statement.setInt(4, getProductQuantity());
 
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationID = ? WHERE ProductID = ?");             
+                statement = Application.database.newStatement("UPDATE StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID SET StockInformation.ProductName = ?, StockInformation.ProductPrice = ?, StockInformation.LocationID = ?, StockCatalog.ProductQuantity WHERE StockInformation.ProductID = ?");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
                 statement.setInt(3, getLocationID());
-                statement.setInt(4, getProductID()); //TY BASED ANDREAS
+                statement.setInt(4, getProductQuantity());
+                statement.setInt(5, getProductID()); //TY BASED ANDREAS
             }
 
             if (statement != null)

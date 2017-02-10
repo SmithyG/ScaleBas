@@ -17,6 +17,7 @@ public class EditStockController
 
     @FXML   private TextField nameTextField;
     @FXML   private TextField priceTextField;
+    @FXML   private TextField quantityTextField;
     @FXML   private ChoiceBox<Location> locationChoiceBox;
     @FXML   private Button saveButton;
     @FXML   private Button cancelButton;
@@ -77,6 +78,7 @@ public class EditStockController
         stockInformation = StockInformation.getByProductID(productID);
         nameTextField.setText(stockInformation.getProductName());
         priceTextField.setText(stockInformation.getProductPriceString());
+        quantityTextField.setText(stockInformation.getProductQuantityString());
 
         List<Location> productList = locationChoiceBox.getItems();
 
@@ -100,8 +102,9 @@ public class EditStockController
         ); */
 
         double price = Double.parseDouble(priceTextField.getText());
+        int quantity = Integer.parseInt(quantityTextField.getText());
 
-        price = Math.rint(price * 100) / 100;		
+        price = Math.rint(price * 100) / 100;       
 
         if (stockInformation == null)
         {
@@ -109,6 +112,7 @@ public class EditStockController
         }
         stockInformation.setProductName(nameTextField.getText());
         stockInformation.setProductPrice(price);
+        stockInformation.setProductQuantity(quantity);
         Location selectedLocation = (Location) locationChoiceBox.getSelectionModel().getSelectedItem();
         stockInformation.setLocationID(selectedLocation.id);
 

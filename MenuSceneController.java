@@ -138,7 +138,7 @@ public class MenuSceneController
 
     @FXML void deliveriesClicked()
     {
-        System.out.println("Pending Deliveries Clicked");
+        openNewScene(0);
     }
 
     @FXML void chartsClicked()

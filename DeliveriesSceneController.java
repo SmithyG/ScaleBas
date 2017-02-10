@@ -8,6 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.collections.ObservableList;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 
 public class DeliveriesSceneController
@@ -21,7 +22,7 @@ public class DeliveriesSceneController
 
     private Deliveries deliveries;
 
-    public DeliveriesStockController()
+    public DeliveriesSceneController()
     {
         System.out.println("Initialising controllers...");
     }
@@ -48,10 +49,42 @@ public class DeliveriesSceneController
             assert cancelButton != null : "Can't find cancel button.";
             assert deliveriesTable != null : "Can't find deliveries table.";
         }
-         catch (AssertionError ae)
+        catch (AssertionError ae)
         {
             System.out.println("FXML assertion failure: " + ae.getMessage());
             Application.terminate();
         }
 
+        System.out.println("Populating scene with items from the database...");        
+        ObservableList<Deliveries> deliveriesList = FXCollections.observableArrayList();
+        Deliveries.readAll(deliveriesList);
+
+        TableColumn<Deliveries, Integer> deliveryIDColumn = new TableColumn<>("Delivery ID");
+        deliveryIDColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("DeliveryID"));
+        deliveryIDColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(deliveryIDColumn);
+
+        TableColumn<Deliveries, Integer> productIDColumn = new TableColumn<>("Product ID");
+        productIDColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("ProductID"));
+        productIDColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(productIDColumn);
+
+        TableColumn<Deliveries, String> productNameColumn = new TableColumn<>("Product Name");
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("ProductName"));
+        productNameColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(productNameColumn);
+
+        TableColumn<Deliveries, String> deliveryDateColumn = new TableColumn<>("Delivery Date");
+        deliveryDateColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("DeliveryDate"));
+        deliveryDateColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(deliveryDateColumn);
+
+        deliveriesTable.setItems(deliveriesList);
+
     }
+    
+        public void setParent(MenuSceneController parent)
+    {
+        this.parent = parent;
+    }
+}

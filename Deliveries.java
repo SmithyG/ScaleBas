@@ -84,9 +84,9 @@ public class Deliveries
                 try {
                     while (results.next()){
                         list.add( new Deliveries(results.getInt("DeliveryID"),
-                                results.getInt("LocationID"),
+                                results.getInt("ProductID"),
                                 results.getString("ProductName"),
-                                results.getString("LocationName")));
+                                results.getString("DeliveryDate")));
                     }
                 }
                 catch (SQLException resultsexception)

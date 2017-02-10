@@ -83,6 +83,17 @@ public class DeliveriesSceneController
 
     }
     
+    @FXML void processClicked()
+    {
+        System.out.println("Process clicked");
+    }
+    
+    @FXML void cancelClicked()
+    {
+        System.out.println("Cancel clicked");
+        stage.close();
+    }
+    
         public void setParent(MenuSceneController parent)
     {
         this.parent = parent;

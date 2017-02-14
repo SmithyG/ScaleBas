@@ -13,6 +13,8 @@ public  class StockInformation{
     
     private int productQuantity;
     private StringProperty productQuantityString;
+    
+    private int stockID;
 
     private StringProperty locationName;
 
@@ -38,6 +40,16 @@ public  class StockInformation{
     {
         this.locationID = locationID;
     }
+    
+    public int getStockID()
+    {
+        return stockID;
+    }
+    
+    public void setStockID(int stockID)
+    {
+        this.stockID = stockID;
+    }
 
     public String getProductPriceString() {
 
@@ -58,6 +70,11 @@ public  class StockInformation{
     public int getProductID()
     {
         return productID;
+    }
+    
+    public void setProductID(int productID)
+    {
+        this.productID = productID;
     }
 
     public String getLocationName()
@@ -140,7 +157,7 @@ public  class StockInformation{
     {
         StockInformation stockInformation = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT StockInformation.ProductID, StockInformation.ProductName, StockInformation.ProductPrice, StockInformation.LocationID, StockCatalog.ProductQuantity FROM StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID WHERE ProductID = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT StockInformation.ProductID, StockInformation.ProductName, StockInformation.ProductPrice, StockInformation.LocationID, StockCatalog.ProductQuantity FROM StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID WHERE StockInformation.ProductID = ?"); 
 
         try 
         {
@@ -182,8 +199,15 @@ public  class StockInformation{
         }
 
     } 
+    
+    public void save()
+    {
+        saveStockInformation();
+        setProductID(Application.database.lastNewID());
+        saveStockCatalog();
+    }
 
-    public void save()    
+    public void saveStockInformation()    
     {
         PreparedStatement statement;
 
@@ -193,21 +217,19 @@ public  class StockInformation{
             if (productID == 0)
             {                
 
-                statement = Application.database.newStatement("INSERT INTO StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID (StockInformation.ProductName, StockInformation.ProductPrice, StockInformation.LocationID, StockCatalog.ProductQuantity) VALUES (?, ?, ?,?)");             
+                statement = Application.database.newStatement("INSERT INTO StockInformation (ProductName, ProductPrice, LocationID) VALUES (?, ?, ?)");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice()); 
                 statement.setInt(3, getLocationID());
-                statement.setInt(4, getProductQuantity());
 
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE StockInformation INNER JOIN StockCatalog ON StockInformation.ProductID = StockCatalog.ProductID SET StockInformation.ProductName = ?, StockInformation.ProductPrice = ?, StockInformation.LocationID = ?, StockCatalog.ProductQuantity WHERE StockInformation.ProductID = ?");             
+                statement = Application.database.newStatement("UPDATE StockInformation SET ProductName = ?, ProductPrice = ?, LocationID = ? WHERE ProductID = ?");             
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
                 statement.setInt(3, getLocationID());
-                statement.setInt(4, getProductQuantity());
-                statement.setInt(5, getProductID()); //TY BASED ANDREAS
+                statement.setInt(4, getProductID()); //TY BASED ANDREAS
             }
 
             if (statement != null)
@@ -220,5 +242,38 @@ public  class StockInformation{
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
 
+    }
+    
+    public void saveStockCatalog()
+    {
+        PreparedStatement statement;
+        
+        try 
+        {
+
+            if (productID >= 0)
+            {                
+
+                statement = Application.database.newStatement("INSERT INTO StockCatalog (ProductQuantity,ProductID) VALUES (?,?)");             
+                statement.setInt(1, getProductQuantity());
+                statement.setInt(2, getProductID());
+
+            }
+            else
+            {
+                statement = Application.database.newStatement("UPDATE StockCatalog SET ProductQuantity = ? WHERE ProductID = ?");             
+                statement.setInt(1, getProductQuantity());
+                statement.setInt(2, getProductID()); //TY BASED ANDREAS
+            }
+
+            if (statement != null)
+            {
+                Application.database.executeUpdate(statement);
+            }
+        }
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
     }
 }

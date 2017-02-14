@@ -191,7 +191,7 @@ public class MenuSceneController
     {
 
         
-        if (id == 0){
+        if (id >= 0){
             FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml"));
             try
             {

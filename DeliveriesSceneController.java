@@ -68,6 +68,11 @@ public class DeliveriesSceneController
         productIDColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("ProductID"));
         productIDColumn.setMinWidth(25);
         deliveriesTable.getColumns().add(productIDColumn);
+        
+        TableColumn<Deliveries, Integer> deliveryQuantityColumn = new TableColumn<>("Delivery Quantity");
+        deliveryQuantityColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("DeliveryQuantity"));
+        deliveryQuantityColumn.setMinWidth(25);
+        deliveriesTable.getColumns().add(deliveryQuantityColumn);
 
         TableColumn<Deliveries, String> deliveryDateColumn = new TableColumn<>("Delivery Date");
         deliveryDateColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, String>("DeliveryDate"));
@@ -85,13 +90,44 @@ public class DeliveriesSceneController
     
     @FXML void processClicked()
     {
-        System.out.println("Process clicked");
-    }
+       System.out.println("Process button clicked!");   
+       
+
+       /* if (stockInformation == null)
+        {
+            stockInformation = new StockInformation();
+        }
+        stockInformation.setProductName(nameTextField.getText());
+        stockInformation.setProductPrice(price);
+        stockInformation.setProductQuantity(quantity);
+        Location selectedLocation = (Location) locationChoiceBox.getSelectionModel().getSelectedItem();
+        stockInformation.setLocationID(selectedLocation.id);
+
+        stockInformation.save(); 
+
+        parent.refreshTable();
+
+        stage.close(); */
+    } 
     
     @FXML void cancelClicked()
     {
         System.out.println("Cancel clicked");
         stage.close();
+    }
+    
+    @FXML   void tableViewClicked()
+    {
+        Deliveries selectedItem = (Deliveries) deliveriesTable.getSelectionModel().getSelectedItem();
+
+        if (selectedItem == null)
+        {
+            System.out.println("Nothing selected!");
+        }
+        else
+        {
+            System.out.println("(id: " + selectedItem.getDeliveryID() + ") is selected.");
+        }
     }
     
         public void setParent(MenuSceneController parent)

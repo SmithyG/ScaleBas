@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DeliveriesSceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DeliveriesSceneController">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0">
          <children>
-            <TableView fx:id="deliveriesTable" minWidth="300.0" prefWidth="556.0" />
+            <TableView fx:id="deliveriesTable" minWidth="300.0" onKeyReleased="#tableViewClicked" onMouseClicked="#tableViewClicked" prefWidth="556.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0">

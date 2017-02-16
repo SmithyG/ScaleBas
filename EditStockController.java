@@ -94,13 +94,6 @@ public class EditStockController
     @FXML   void saveButtonClicked()
     {
         System.out.println("Save button clicked!");   
-
-        /* StockInformation stockInformation = new StockInformation(0,
-        Double.parseDouble(priceTextField.getText()),        
-        nameTextField.getText(),
-        locationChoiceBox.getSelectionModel().getSelectedItem()
-        ); */
-
         double price = Double.parseDouble(priceTextField.getText());
         int quantity = Integer.parseInt(quantityTextField.getText());
 

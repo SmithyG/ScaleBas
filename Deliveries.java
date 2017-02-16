@@ -8,6 +8,8 @@ public class Deliveries
 {
     private int deliveryID;
     private int productID;
+    private int deliveryQuantity;
+    private int deliveryStatus;
     private StringProperty deliveryDate;
     private StringProperty productName;
 
@@ -29,6 +31,26 @@ public class Deliveries
     public void setProductID(int productID)
     {
         this.productID = productID;
+    }
+
+    public int getDeliveryQuantity()
+    {
+        return deliveryQuantity;
+    }
+
+    public void setDeliveryQuantity(int deliveryQuantity)
+    {
+        this.deliveryQuantity = deliveryQuantity;
+    }
+
+    public int getDeliveryStatus()
+    {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(int deliveryStatus)
+    {
+        this.deliveryStatus = deliveryStatus;
     }
 
     public String getDeliveryDate()
@@ -55,10 +77,12 @@ public class Deliveries
     {
     } 
 
-    public Deliveries(int deliveryID, int productID, String deliveryDate, String productName)
+    public Deliveries(int deliveryID, int productID, int deliveryQuantity, int deliveryStatus, String deliveryDate, String productName)
     {
         this.deliveryID = deliveryID;
         this.productID = productID;
+        this.deliveryQuantity = deliveryQuantity;
+        this.deliveryStatus = deliveryStatus;
         setDeliveryDate(deliveryDate);
         setProductName(productName);
     }
@@ -67,26 +91,29 @@ public class Deliveries
     {
         list.clear();
 
-        String sql = "SELECT Deliveries.DeliveryID, Deliveries.DeliveryDate, ";
+        String sql = "SELECT Deliveries.DeliveryID, Deliveries.DeliveryDate, Deliveries.DeliveryStatus, ";
+        sql += "DeliveryContent.DeliveryQuantity, ";
         sql += "StockInformation.ProductID, StockInformation.ProductName ";
         sql += "FROM Deliveries INNER JOIN DeliveryContent ON Deliveries.DeliveryID = DeliveryContent.DeliveryID ";
         sql += "INNER JOIN stockcatalog ON stockcatalog.StockID = DeliveryContent.StockID ";
-        sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID";
+        sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID ";
+        sql += "WHERE Deliveries.DeliveryStatus = 0";
 
         PreparedStatement statement = Application.database.newStatement(sql);
 
         if (statement !=null)
         {
             ResultSet results = Application.database.runQuery(statement);
-
             if (results !=null)
             {
                 try {
                     while (results.next()){
-                        list.add( new Deliveries(results.getInt("DeliveryID"),
-                                results.getInt("ProductID"),
-                                results.getString("DeliveryDate"),
-                                results.getString("ProductName")));
+                        list.add( new Deliveries(results.getInt("deliveryID"),
+                                results.getInt("productID"),
+                                results.getInt("deliveryQuantity"),
+                                results.getInt("deliveryStatus"),
+                                results.getString("deliveryDate"),
+                                results.getString("productName")));
                     }
                 }
                 catch (SQLException resultsexception)
@@ -94,8 +121,63 @@ public class Deliveries
                     System.out.println("Database result processing error: " + resultsexception.getMessage()); 
                 }
             }
+
         }
 
     }
+
+    public static Deliveries getByDeliveryID(int deliveryID)
+    {
+        Deliveries deliveries = null;
+
+        String sql = "SELECT Deliveries.DeliveryID, Deliveries.DeliveryDate, ";
+        sql += "DeliveryContent.DeliveryQuantity, ";
+        sql += "StockInformation.ProductID, StockInformation.ProductName ";
+        sql += "FROM Deliveries INNER JOIN DeliveryContent ON Deliveries.DeliveryID = DeliveryContent.DeliveryID ";
+        sql += "INNER JOIN stockcatalog ON stockcatalog.StockID = DeliveryContent.StockID ";
+        sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID";
+
+        PreparedStatement statement = Application.database.newStatement(sql); 
+
+        try 
+        {
+            if (statement != null)
+            {
+                statement.setInt(1, deliveryID);
+                ResultSet results = Application.database.runQuery(statement);
+
+                if (results != null)
+                {
+                    deliveries = new Deliveries(results.getInt("deliveryID"), results.getInt("productID"), results.getInt("deliveryQuantity"), results.getInt("deliveryStatus"), results.getString("deliveryDate"), results.getString("productName"));
+                }
+            }
+        }
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
+
+        return deliveries;
+    }
+
+  /*  public static void processDelivery(int deliveryID)
+    {
+        try 
+        {
+
+            PreparedStatement statement = Application.database.newStatement("DELETE FROM Deliveries WHERE DeliveryID = ?");             
+            statement.setInt(1, productID);
+
+            if (statement != null)
+            {
+                Application.database.executeUpdate(statement);
+            }
+        }
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
+
+    } */
 
 }

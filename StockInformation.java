@@ -203,7 +203,7 @@ public  class StockInformation{
     public void save()
     {
         saveStockInformation();
-        setProductID(Application.database.lastNewID());
+        if (getProductID() == 0) setProductID(Application.database.lastNewID());
         saveStockCatalog();
     }
 

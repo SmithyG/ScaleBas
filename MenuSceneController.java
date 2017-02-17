@@ -116,7 +116,7 @@ public class MenuSceneController
     }
 
     public void refreshTable(){
-        System.out.println("Populating scene with items from the database...");        
+        System.out.println("Populating scene with refreshed items from the database...");        
         ObservableList<StockInformation> productList = FXCollections.observableArrayList();
         StockInformation.readAll(productList);
         inventoryTable.setItems(productList);

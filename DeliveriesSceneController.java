@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.ArrayList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 public class DeliveriesSceneController
 {
@@ -68,7 +73,7 @@ public class DeliveriesSceneController
         productIDColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("ProductID"));
         productIDColumn.setMinWidth(25);
         deliveriesTable.getColumns().add(productIDColumn);
-        
+
         TableColumn<Deliveries, Integer> deliveryQuantityColumn = new TableColumn<>("Delivery Quantity");
         deliveryQuantityColumn.setCellValueFactory(new PropertyValueFactory<Deliveries, Integer>("DeliveryQuantity"));
         deliveryQuantityColumn.setMinWidth(25);
@@ -87,35 +92,39 @@ public class DeliveriesSceneController
         deliveriesTable.setItems(deliveriesList);
 
     }
-    
+
+    public void refreshTable()
+    {
+        System.out.println("Populating scene with refreshed items from the database...");        
+        ObservableList<Deliveries> deliveriesList = FXCollections.observableArrayList();
+        Deliveries.readAll(deliveriesList);
+        deliveriesTable.setItems(deliveriesList);
+    }
+
     @FXML void processClicked()
     {
-       System.out.println("Process button clicked!");   
-       
-
-       /* if (stockInformation == null)
-        {
-            stockInformation = new StockInformation();
+        System.out.println("Process button clicked!");   
+        Deliveries selectedItem = (Deliveries) deliveriesTable.getSelectionModel().getSelectedItem();
+        if (selectedItem !=null){
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Process Delivery");
+            alert.setContentText("Are you sure you want to process " + selectedItem.getDeliveryID());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                Deliveries.processDelivery(selectedItem.getDeliveryID());
+                refreshTable();
+                System.out.println("Delivery " + selectedItem.getDeliveryID() + " processed");
+            }
         }
-        stockInformation.setProductName(nameTextField.getText());
-        stockInformation.setProductPrice(price);
-        stockInformation.setProductQuantity(quantity);
-        Location selectedLocation = (Location) locationChoiceBox.getSelectionModel().getSelectedItem();
-        stockInformation.setLocationID(selectedLocation.id);
-
-        stockInformation.save(); 
-
-        parent.refreshTable();
-
-        stage.close(); */
     } 
-    
+
     @FXML void cancelClicked()
     {
         System.out.println("Cancel clicked");
         stage.close();
     }
-    
+
     @FXML   void tableViewClicked()
     {
         Deliveries selectedItem = (Deliveries) deliveriesTable.getSelectionModel().getSelectedItem();
@@ -129,8 +138,8 @@ public class DeliveriesSceneController
             System.out.println("(id: " + selectedItem.getDeliveryID() + ") is selected.");
         }
     }
-    
-        public void setParent(MenuSceneController parent)
+
+    public void setParent(MenuSceneController parent)
     {
         this.parent = parent;
     }

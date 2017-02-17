@@ -160,14 +160,13 @@ public class Deliveries
         return deliveries;
     }
 
-  /*  public static void processDelivery(int deliveryID)
+    public static void processDelivery(int deliveryID)
     {
         try 
         {
-
-            PreparedStatement statement = Application.database.newStatement("DELETE FROM Deliveries WHERE DeliveryID = ?");             
-            statement.setInt(1, productID);
-
+           // String sql = "SELECT DeliveryContent.DeliveryQuantity, StockCatalog.ProductQuantity FROM DeliveryContent INNER JOIN"
+            PreparedStatement statement = Application.database.newStatement("UPDATE Deliveries SET DeliveryStatus = 1 WHERE DeliveryID = ?");    
+            statement.setInt(1, deliveryID);
             if (statement != null)
             {
                 Application.database.executeUpdate(statement);
@@ -178,6 +177,6 @@ public class Deliveries
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
 
-    } */
+    } 
 
 }

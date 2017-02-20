@@ -112,7 +112,8 @@ public class DeliveriesSceneController
             alert.setContentText("Are you sure you want to process " + selectedItem.getDeliveryID());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                Deliveries.processDelivery(selectedItem.getDeliveryID());
+                Deliveries.processDeliveryQuantity(selectedItem.getDeliveryID());
+                Deliveries.processDeliveryStatus(selectedItem.getDeliveryID());
                 refreshTable();
                 System.out.println("Delivery " + selectedItem.getDeliveryID() + " processed");
             }

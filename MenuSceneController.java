@@ -23,9 +23,8 @@ public class MenuSceneController
 {  
     private static Stage stage;
     private CharSequence searchFieldContents;
-    @FXML private Button warehouseButton;
+    @FXML private Button refreshButton;
     @FXML private Button deliveriesButton;
-    @FXML private Button chartsButton;
     @FXML private TableView<StockInformation> inventoryTable;
     @FXML private TextField searchField;
     @FXML private Button addButton;
@@ -48,9 +47,8 @@ public class MenuSceneController
         System.out.println("Asserting controls...");
         try
         {
-            assert warehouseButton != null : "Can't find warehouse visualisation button.";
+            assert refreshButton != null : "Can't find warehouse visualisation button.";
             assert deliveriesButton != null : "Can't find deliveries button.";
-            assert chartsButton != null : "Can't find charts button.";
             assert inventoryTable != null : "Can't find inventory table.";
             assert searchField != null : "Can't find search field.";
             assert addButton != null : "Can't find add button.";
@@ -136,9 +134,9 @@ public class MenuSceneController
         }
     }
 
-    @FXML void warehouseClicked()
+    @FXML void refreshClicked()
     {
-        System.out.println("Warehouse Clicked");
+        refreshTable();
     }
 
     @FXML void deliveriesClicked()

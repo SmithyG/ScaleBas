@@ -159,13 +159,15 @@ public class Deliveries
 
         return deliveries;
     }
-
-    public static void processDelivery(int deliveryID)
+    
+    public static void processDeliveryQuantity(int deliveryID)
     {
         try 
         {
-           // String sql = "SELECT DeliveryContent.DeliveryQuantity, StockCatalog.ProductQuantity FROM DeliveryContent INNER JOIN"
-            PreparedStatement statement = Application.database.newStatement("UPDATE Deliveries SET DeliveryStatus = 1 WHERE DeliveryID = ?");    
+            String sql = "UPDATE StockCatalog SET ProductQuantity = ProductQuantity + ";
+            sql += "(SELECT DeliveryQuantity FROM DeliveryContent WHERE DeliveryContent.StockID= StockCatalog.StockID) ";
+            sql += "WHERE StockCatalog.StockID IN (SELECT DeliveryContent.StockID FROM DeliveryContent WHERE DeliveryContent.DeliveryID = ?)";
+            PreparedStatement statement = Application.database.newStatement(sql);    
             statement.setInt(1, deliveryID);
             if (statement != null)
             {
@@ -176,7 +178,24 @@ public class Deliveries
         {
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
+    }
 
-    } 
+    public static void processDeliveryStatus(int deliveryID)
+    {
 
+        try
+        {
+            String sql = "UPDATE Deliveries SET DeliveryStatus = 1 WHERE DeliveryID = ?";
+            PreparedStatement statement = Application.database.newStatement(sql);  
+            statement.setInt(1, deliveryID);
+            if (statement != null)
+            {
+                Application.database.executeUpdate(statement);
+            }
+        } 
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
+    }
 }

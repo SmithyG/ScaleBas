@@ -12,7 +12,7 @@
       <VBox fx:id="tableVBox" HBox.hgrow="ALWAYS">
          <children>
             <TextField fx:id="searchField" onKeyReleased="#textEntered" promptText="Search..." />
-            <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+            <HBox alignment="CENTER" prefWidth="200.0">
                <children>
                   <Button fx:id="addButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#addClicked" text="Add">
                      <HBox.margin>
@@ -29,13 +29,12 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="warehouseButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#warehouseClicked" text="Warehouse Visualisation">
+                  <Button fx:id="refreshButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#refreshClicked" text="Refresh Table">
                      <HBox.margin>
                         <Insets left="140.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="deliveriesButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#deliveriesClicked" text="Pending Deliveries" />
-                  <Button fx:id="chartsButton" minWidth="100.0" mnemonicParsing="false" onMouseClicked="#chartsClicked" text="Charts" textAlignment="CENTER" />
                </children>
             </HBox>
             <TableView fx:id="inventoryTable" minWidth="300.0" onKeyReleased="#tableViewClicked" onMouseClicked="#tableViewClicked" prefWidth="556.0" />

@@ -194,7 +194,7 @@ public class MenuSceneController
             try
             {
                 Stage stage2 = new Stage();
-                stage2.setTitle("Add");
+                stage2.setTitle("Add/Edit");
                 stage2.setScene(new Scene(loader.load()));
                 stage2.show();           
                 EditStockController controller2 = loader.getController();

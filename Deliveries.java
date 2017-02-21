@@ -97,7 +97,7 @@ public class Deliveries
         sql += "FROM Deliveries INNER JOIN DeliveryContent ON Deliveries.DeliveryID = DeliveryContent.DeliveryID ";
         sql += "INNER JOIN stockcatalog ON stockcatalog.StockID = DeliveryContent.StockID ";
         sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID ";
-        sql += "WHERE Deliveries.DeliveryStatus = 0";
+        sql += "WHERE Deliveries.DeliveryStatus = 0"; //Only fields with a DeliveryStatus = 0 are displayed
 
         PreparedStatement statement = Application.database.newStatement(sql);
 
@@ -128,14 +128,14 @@ public class Deliveries
 
     public static Deliveries getByDeliveryID(int deliveryID)
     {
-        Deliveries deliveries = null;
+        Deliveries deliveries = null; //Object is emptied 
 
-        String sql = "SELECT Deliveries.DeliveryID, Deliveries.DeliveryDate, ";
+        String sql = "SELECT Deliveries.DeliveryID, Deliveries.DeliveryDate, "; //SELECT statement reads data from database
         sql += "DeliveryContent.DeliveryQuantity, ";
         sql += "StockInformation.ProductID, StockInformation.ProductName ";
-        sql += "FROM Deliveries INNER JOIN DeliveryContent ON Deliveries.DeliveryID = DeliveryContent.DeliveryID ";
-        sql += "INNER JOIN stockcatalog ON stockcatalog.StockID = DeliveryContent.StockID ";
-        sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID";
+        sql += "FROM Deliveries INNER JOIN DeliveryContent ON Deliveries.DeliveryID = DeliveryContent.DeliveryID "; //INNER JOIN selects only fields with matching DeliveryIDs
+        sql += "INNER JOIN stockcatalog ON stockcatalog.StockID = DeliveryContent.StockID "; //INNER JOIN selects StockCatalog fields with matching StockIDs
+        sql += "INNER JOIN stockinformation ON stockinformation.ProductID = stockcatalog.ProductID"; //INNER JOIN selects StockInformation fields with matching ProductIDs
 
         PreparedStatement statement = Application.database.newStatement(sql); 
 

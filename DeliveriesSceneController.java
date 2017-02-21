@@ -115,6 +115,7 @@ public class DeliveriesSceneController
                 Deliveries.processDeliveryQuantity(selectedItem.getDeliveryID());
                 Deliveries.processDeliveryStatus(selectedItem.getDeliveryID());
                 refreshTable();
+                parent.refreshTable();
                 System.out.println("Delivery " + selectedItem.getDeliveryID() + " processed");
             }
         }

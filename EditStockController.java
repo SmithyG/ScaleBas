@@ -90,6 +90,7 @@ public class EditStockController
             }
         } 
     }
+    
 
     @FXML   void saveButtonClicked()
     {

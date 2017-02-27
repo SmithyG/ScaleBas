@@ -229,7 +229,7 @@ public  class StockInformation{
                 statement.setString(1, getProductName());
                 statement.setDouble(2, getProductPrice());   
                 statement.setInt(3, getLocationID());
-                statement.setInt(4, getProductID()); //TY BASED ANDREAS
+                statement.setInt(4, getProductID());
             }
 
             if (statement != null)

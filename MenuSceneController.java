@@ -22,7 +22,6 @@ import java.util.Iterator;
 public class MenuSceneController
 {  
     private static Stage stage;
-    private CharSequence searchFieldContents;
     @FXML private Button refreshButton;
     @FXML private Button deliveriesButton;
     @FXML private TableView<StockInformation> inventoryTable;
@@ -35,7 +34,7 @@ public class MenuSceneController
     {
         System.out.println("Initialising controllers...");
 
-        if (stage != null)
+        if (stage != null) //Closes application if duplicate controller exists
         {
             System.out.println("Error, duplicate controller - terminating application!");
             System.exit(-1);
@@ -50,15 +49,14 @@ public class MenuSceneController
             assert refreshButton != null : "Can't find warehouse visualisation button.";
             assert deliveriesButton != null : "Can't find deliveries button.";
             assert inventoryTable != null : "Can't find inventory table.";
-            assert searchField != null : "Can't find search field.";
             assert addButton != null : "Can't find add button.";
             assert editButton != null : "Can't find edit button.";
-            assert deleteButton != null : "Can't find delete button.";
+            assert deleteButton != null : "Can't find delete button."; //Assertions check to see if all interactive components have loaded
         }
         catch (AssertionError ae)
         {
             System.out.println("FXML assertion failure: " + ae.getMessage());
-            Application.terminate();
+            Application.terminate(); //If not, the application terminates
         }
 
         System.out.println("Populating scene with items from the database...");        
@@ -93,7 +91,7 @@ public class MenuSceneController
         TableColumn<StockInformation, String> productQuantityColumn = new TableColumn<>("Product Quantity");
         productQuantityColumn.setCellValueFactory(new PropertyValueFactory<StockInformation, String>("ProductQuantityString"));
         productQuantityColumn.setMinWidth(25);
-        inventoryTable.getColumns().add(productQuantityColumn);
+        inventoryTable.getColumns().add(productQuantityColumn); //Each column for the table view is created and populated
 
         inventoryTable.setItems(productList);
 
@@ -116,13 +114,13 @@ public class MenuSceneController
     public void refreshTable(){
         System.out.println("Populating scene with refreshed items from the database...");        
         ObservableList<StockInformation> productList = FXCollections.observableArrayList();
-        StockInformation.readAll(productList);
-        inventoryTable.setItems(productList);
+        StockInformation.readAll(productList); //The list is read again via the readAll method
+        inventoryTable.setItems(productList); //The table is repopulated with updated information
     }
 
     @FXML   void tableViewClicked()
     {
-        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem(); //The selected item ID is found
 
         if (selectedItem == null)
         {
@@ -136,53 +134,45 @@ public class MenuSceneController
 
     @FXML void refreshClicked()
     {
-        refreshTable();
+        refreshTable(); //refreshTable method is called when the refresh button is clicked.
     }
 
     @FXML void deliveriesClicked()
     {
-        openNewScene(-1);
-    }
-
-    @FXML void chartsClicked()
-    {
-        System.out.println("Charts Clicked");
+        openNewScene(-1); //Int -1 is passed to the openNewScene method when deliveries button is clicked
     }
 
     @FXML void addClicked()
     {
-        openNewScene(0);
+        openNewScene(0); //Int 0 is passed to the openNewScene method when add button is clicked
     }
 
     @FXML void editClicked()
     {
         System.out.println("Edit Clicked");
-        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
-        openNewScene(selectedItem.getProductID());
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem(); //Selected Item ID is found
+        if (selectedItem == null){
+            System.out.println("Please select an item to be edited");
+        }else
+        openNewScene(selectedItem.getProductID()); //And is passed to the openNewScene method
     }
 
     @FXML void deleteClicked()
     {
-        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem();
+        StockInformation selectedItem = (StockInformation) inventoryTable.getSelectionModel().getSelectedItem(); //Selected Item ID is found
         if (selectedItem !=null){
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Dialog");
             alert.setHeaderText("Delete Item");
             alert.setContentText("Are you sure you want to delete this?");
             System.out.println("Delete was clicked!");
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait(); //Alert is generated warning the user of their action
             if (result.get() == ButtonType.OK){
-                StockInformation.deleteByProductID(selectedItem.getProductID());
-                refreshTable();
+                StockInformation.deleteByProductID(selectedItem.getProductID()); //Delete by ID method in StockInformation is ran
+                refreshTable(); //Table is refresh due to record being removed
                 System.out.println("Item " + selectedItem.getProductName() +" deleted");
             }
         }
-    }
-
-    @FXML void textEntered()
-    {
-        searchFieldContents = searchField.getCharacters();
-        System.out.println(searchFieldContents.toString());
     }
 
     void openNewScene(int id)
@@ -190,7 +180,7 @@ public class MenuSceneController
 
         
         if (id >= 0){
-            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml"));
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Edit.fxml")); //If ID >= 0, the Edit scene is loaded
             try
             {
                 Stage stage2 = new Stage();
@@ -210,7 +200,7 @@ public class MenuSceneController
             }
 
         }else if (id == -1){
-            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Deliveries.fxml"));
+            FXMLLoader loader = new FXMLLoader(Application.class.getResource("Deliveries.fxml")); //If ID == -1, the Deliveries scene is loaded
             try
             {
                 Stage stage3 = new Stage();

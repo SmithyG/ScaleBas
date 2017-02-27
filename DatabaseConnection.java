@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 
 public class DatabaseConnection {
 
-    private Connection conection = null;
+    private Connection connection = null;
 
     public DatabaseConnection(String dbFile)
     {
         try
         {         
             Class.forName("org.sqlite.JDBC");
-            conection = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             System.out.println("Database connection successfully established.");
         } 
         catch (ClassNotFoundException cnfex)
@@ -31,7 +31,7 @@ public class DatabaseConnection {
     {
         PreparedStatement statement = null;
         try {
-            statement = conection.prepareStatement(query);
+            statement = connection.prepareStatement(query);
         }
         catch (SQLException resultsexception) 
         {
@@ -94,7 +94,7 @@ public class DatabaseConnection {
     {
         System.out.println("Disconnecting from database.");
         try {
-            if (conection != null) conection.close();                        
+            if (connection != null) connection.close();                        
         } 
         catch (SQLException finalexception) 
         {
